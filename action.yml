@@ -1,0 +1,32 @@
+name: 'go-semantic-release'
+description: 'fully automated package/module/image publishing'
+inputs:
+  github-token:
+    description: 'github token'
+    required: false
+  changelog-file:
+    description: 'creates a changelog file'
+    required: false
+  update-file:
+    description: 'updates the version of a certain file'
+    required: false
+  dry:
+    description: 'do not create release'
+    required: false
+  prerelease:
+    description: 'flags the release as a prerelease'
+    required: false
+outputs:
+  version:
+    description: 'the version of the created release'
+  version_major:
+    description: 'the major version of the created release'
+  version_minor:
+    description: 'the minor version of the created release'
+  version_patch:
+    description: 'the patch version of the created release'
+  version_prerelease:
+    description: 'the prerelease version of the created release'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
