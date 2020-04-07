@@ -62,9 +62,9 @@ async function main () {
     const parsedVersion = new SemVer(version)
     core.debug(`setting version to ${parsedVersion.version}`)
     core.setOutput('version', parsedVersion.version)
-    core.setOutput('version_major', parsedVersion.major)
-    core.setOutput('version_minor', parsedVersion.minor)
-    core.setOutput('version_patch', parsedVersion.minor)
+    core.setOutput('version_major', `${parsedVersion.major}`)
+    core.setOutput('version_minor', `${parsedVersion.minor}`)
+    core.setOutput('version_patch', `${parsedVersion.patch}`)
     core.setOutput('version_prerelease', parsedVersion.prerelease.join('.'))
   } catch (error) {
     core.setFailed(error.message)
