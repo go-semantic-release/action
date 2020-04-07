@@ -1,0 +1,27 @@
+{
+  "name": "go-semantic-release-action",
+  "version": "0.0.0-development",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "standard src/**",
+    "fix": "standard --fix src/**",
+    "build": "ncc build src/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "@actions/exec": "^1.0.3",
+    "@actions/tool-cache": "^1.3.3",
+    "semver": "^7.2.1"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.0",
+    "husky": "^4.2.3",
+    "standard": "^14.3.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test && npm run build && git add dist/"
+    }
+  }
+}
