@@ -16,6 +16,9 @@ inputs:
   prerelease:
     description: 'flags the release as a prerelease'
     required: false
+  allow-initial-development-versions:
+    description: 'starts your initial development release at 0.1.0'
+    required: false
 outputs:
   version:
     description: 'the version of the created release'
