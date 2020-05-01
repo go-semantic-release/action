@@ -4819,7 +4819,7 @@ async function main () {
     if (core.getInput('allow-initial-development-versions')) {
       args.push('-allow-initial-development-versions')
     }
-    const binPah = await installer('^1.14.0')
+    const binPah = await installer('^1.21.2')
     try {
       core.info('running semantic-release...')
       await exec.exec(binPah, args)
