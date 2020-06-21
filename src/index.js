@@ -49,10 +49,10 @@ async function main () {
     if (core.getInput('allow-initial-development-versions')) {
       args.push('-allow-initial-development-versions')
     }
-    const binPah = await installer('^1.21.2')
+    const binPath = await installer('^1.21.3')
     try {
       core.info('running semantic-release...')
-      await exec.exec(binPah, args)
+      await exec.exec(binPath, args)
     } catch (error) {
       if (/exit code 6\d/.test(error.message)) {
         return
