@@ -19,6 +19,9 @@ inputs:
   allow-initial-development-versions:
     description: 'starts your initial development release at 0.1.0'
     required: false
+  allow-no-changes:
+    description: 'return zero exit code when no changes are found'
+    required: false
 outputs:
   version:
     description: 'the version of the created release'
