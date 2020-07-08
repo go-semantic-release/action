@@ -7,6 +7,9 @@ inputs:
   changelog-file:
     description: 'creates a changelog file'
     required: false
+  ghr:
+    description: 'create a .ghr file with the parameters for tcnksm/ghr'
+    required: false
   update-file:
     description: 'updates the version of a certain file'
     required: false

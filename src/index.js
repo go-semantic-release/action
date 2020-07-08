@@ -46,6 +46,9 @@ async function main () {
       args.push('-changelog')
       args.push(core.getInput('changelog-file'))
     }
+    if (core.getInput('ghr')) {
+      args.push('-ghr')
+    }
     if (core.getInput('allow-initial-development-versions')) {
       args.push('-allow-initial-development-versions')
     }
