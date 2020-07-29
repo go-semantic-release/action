@@ -52,7 +52,7 @@ async function main () {
     if (core.getInput('allow-initial-development-versions')) {
       args.push('-allow-initial-development-versions')
     }
-    const binPath = await installer('^1.21.3')
+    const binPath = await installer('^1.22.1')
     try {
       core.info('running semantic-release...')
       await exec.exec(binPath, args)
