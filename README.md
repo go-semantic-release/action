@@ -1,8 +1,8 @@
-# Go Semantic Release Github Action
+# go-semantic-release/action
 
 ## Usage
 
-To integrate go-semantic-release with your Actions pipeline, specify the name of this repository with a tag number as a step withint your `workflow.yml` file
+To integrate [go-semantic-release](https://github.com/go-semantic-release/semantic-release) with your GitHub Actions pipeline, specify the name of this repository with a version tag as a step within your workflow config file:
 
 ```yaml
 steps:
@@ -10,37 +10,64 @@ steps:
   - uses: go-semantic-release/action@v1
     with:
       github-token: ${{ secrets.GITHUB_TOKEN }}
-      dry: false
-      allow-initial-development-versions: true
 ```
 
 ## Arguments
 
-|                Input                 |                   Description                    | Usage                         |
-| :----------------------------------: | :----------------------------------------------: | ----------------------------- |
-|            `github-token`            |    Used to authorize coverage report uploads     | _Required to create releases_ |
-|           `changelog-file`           |                Create a changelog                | Optional                      |
-|            `update-file`             |          updates the version in a file           | Optional                      |
-|                `dry`                 |             do not create a release              | Optional                      |
-|             `prerelease`             |        flags the release as a prerelease         | Optional                      |
-| `allow-initial-development-versions` | starts your initial development release at 0.1.0 | Optional                      |
+| Input                                | Description                                                                            | Usage    |
+|--------------------------------------|----------------------------------------------------------------------------------------|----------|
+| `github-token`                       | Used to create releases                                                                | Required |
+| `changelog-file`                     | Create a changelog file                                                                | Optional |
+| `ghr`                                | Create a .ghr file with the parameters for [tcnksm/ghr](https://github.com/tcnksm/ghr) | Optional |
+| `update-file`                        | Update the version of a certain file                                                   | Optional |
+| `dry`                                | Do not create a release                                                                | Optional |
+| `prerelease`                         | Flags the release as a prerelease                                                      | Optional |
+| `allow-initial-development-versions` | Starts your initial development release at 0.1.0                                       | Optional |
 
-## Example `workflow.yml` with Release action
+## Example `ci.yml` for an npm package
 
 ```yaml
-name: Example workflow for Go Semantic Release
-on: [push]
+name: CI
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
 jobs:
-  run:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node: [10, 12]
     steps:
-      - uses: actions/checkout@master
-      - name: Semantic Release
-        uses: go-semantic-release/action@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: 'https://registry.npmjs.org'
+      - uses: go-semantic-release/action@v1
+        id: semrel
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          dry: false
-          allow-initial-development-versions: true
+          update-file: package.json
+      - run: npm publish
+        if: steps.semrel.outputs.version != ''
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
 
 ## License
