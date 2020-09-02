@@ -5092,32 +5092,32 @@ async function installer (version) {
 
 async function main () {
   try {
-    const args = ['-vf']
+    const args = ['--version-file']
     if (core.getInput('github-token')) {
-      args.push('-token')
+      args.push('--token')
       args.push(core.getInput('github-token'))
     }
     if (core.getInput('prerelease')) {
-      args.push('-prerelease')
+      args.push('--prerelease')
     }
     if (core.getInput('dry')) {
-      args.push('-dry')
+      args.push('--dry')
     }
     if (core.getInput('update-file')) {
-      args.push('-update')
+      args.push('--update')
       args.push(core.getInput('update-file'))
     }
     if (core.getInput('changelog-file')) {
-      args.push('-changelog')
+      args.push('--changelog')
       args.push(core.getInput('changelog-file'))
     }
     if (core.getInput('ghr')) {
-      args.push('-ghr')
+      args.push('--ghr')
     }
     if (core.getInput('allow-initial-development-versions')) {
-      args.push('-allow-initial-development-versions')
+      args.push('--allow-initial-development-versions')
     }
-    const binPath = await installer('^1.22.1')
+    const binPath = await installer('^2.5.0')
     try {
       core.info('running semantic-release...')
       await exec.exec(binPath, args)
