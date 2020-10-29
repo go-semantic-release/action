@@ -1,5 +1,8 @@
 name: 'go-semantic-release'
 description: 'fully automated package/module/image publishing'
+branding:
+  icon: 'package'
+  color: 'blue'
 inputs:
   github-token:
     description: 'github token'
