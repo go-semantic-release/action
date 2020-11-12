@@ -5157,7 +5157,8 @@ async function installer (version) {
 
 async function main () {
   try {
-    const args = ['--version-file']
+    const changelogFile = core.getInput('changelog-file') || '.generated-go-semantic-release-changelog.md'
+    const args = ['--version-file', '--changelog', changelogFile]
     if (core.getInput('github-token')) {
       args.push('--token')
       args.push(core.getInput('github-token'))
@@ -5171,10 +5172,6 @@ async function main () {
     if (core.getInput('update-file')) {
       args.push('--update')
       args.push(core.getInput('update-file'))
-    }
-    if (core.getInput('changelog-file')) {
-      args.push('--changelog')
-      args.push(core.getInput('changelog-file'))
     }
     if (core.getInput('ghr')) {
       args.push('--ghr')
@@ -5193,9 +5190,11 @@ async function main () {
       core.setFailed(error.message)
       return
     }
+    const generatedChangelog = (await fs.readFile(changelogFile)).toString('utf8')
     const version = (await fs.readFile('.version')).toString('utf8')
     await fs.unlink('.version')
     const parsedVersion = new SemVer(version)
+    core.setOutput('changelog', generatedChangelog)
     core.debug(`setting version to ${parsedVersion.version}`)
     core.setOutput('version', parsedVersion.version)
     core.setOutput('version_major', `${parsedVersion.major}`)
