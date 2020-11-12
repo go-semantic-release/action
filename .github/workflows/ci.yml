@@ -23,6 +23,9 @@ jobs:
           uses: ./
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
+        - name: Changelog
+          run: echo ${{ steps.semrel.outputs.changelog }}
+          if: steps.semrel.outputs.version != ''
         - name: Set up Git
           if: steps.semrel.outputs.version != ''
           env:
