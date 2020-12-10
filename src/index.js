@@ -53,7 +53,6 @@ async function main () {
       args.push('--force-bump-patch-version')
     }
     if (core.getInput('changelog-generator-opt')) {
-      args.push('--changelog-generator-opt')
       const changelogOpts = core.getInput('changelog-generator-opt').split(',').filter(String)
       for (let idx = 0; idx < changelogOpts.length; idx++) {
         args.push('--changelog-generator-opt')
