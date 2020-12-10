@@ -6,7 +6,7 @@ const exec = require('@actions/exec')
 const tc = require('@actions/tool-cache')
 const SemVer = require('semver/classes/semver')
 
-function getPlatformArch (a, p) {
+function getPlatformArch(a, p) {
   const platform = {
     win32: 'windows'
   }
@@ -17,7 +17,7 @@ function getPlatformArch (a, p) {
   return (platform[p] ? platform[p] : p) + '/' + (arch[a] ? arch[a] : a)
 }
 
-async function installer (version) {
+async function installer(version) {
   core.info(`downloading semantic-release@${version || 'latest'}`)
   const v = version ? `/${version}` : ''
   const path = await tc.downloadTool(`https://get-release.xyz/semantic-release/${getPlatformArch(os.arch(), os.platform())}${v}`)
@@ -25,7 +25,7 @@ async function installer (version) {
   return path
 }
 
-async function main () {
+async function main() {
   try {
     const changelogFile = core.getInput('changelog-file') || '.generated-go-semantic-release-changelog.md'
     const args = ['--version-file', '--changelog', changelogFile]
@@ -48,6 +48,17 @@ async function main () {
     }
     if (core.getInput('allow-initial-development-versions')) {
       args.push('--allow-initial-development-versions')
+    }
+    if (core.getInput('force-bump-patch-version')) {
+      args.push('--force-bump-patch-version')
+    }
+    if (core.getInput('changelog-generator-opt')) {
+      args.push('--changelog-generator-opt')
+      const changelogOpts = core.getInput('changelog-generator-opt').split(",").filter(String)
+      for (let idx = 0; idx < changelogOpts.length; idx++) {
+        args.push('--changelog-generator-opt')
+        args.push(changelogOpts[idx])
+      }
     }
     const binPath = await installer('^2.5.0')
     try {
