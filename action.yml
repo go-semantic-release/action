@@ -25,6 +25,12 @@ inputs:
   allow-initial-development-versions:
     description: 'starts your initial development release at 0.1.0'
     required: false
+  force-bump-patch-version:
+    description: 'increments the patch version if no changes are found'
+    required: false
+  changelog-generator-opt:
+    description: 'options that are passed to the changelog-generator plugin'
+    required: false
 outputs:
   version:
     description: 'the version of the created release'
