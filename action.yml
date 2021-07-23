@@ -22,6 +22,9 @@ inputs:
   prerelease:
     description: 'flags the release as a prerelease'
     required: false
+  prepend:
+    description: 'flag the changes to be prepended into the changelog'
+    required: false
   allow-initial-development-versions:
     description: 'starts your initial development release at 0.1.0'
     required: false

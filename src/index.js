@@ -36,6 +36,9 @@ async function main () {
     if (core.getInput('prerelease')) {
       args.push('--prerelease')
     }
+    if (core.getInput('prepend')) {
+      args.push('--prepend-changelog')
+    }
     if (core.getInput('dry')) {
       args.push('--dry')
     }
