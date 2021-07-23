@@ -25,7 +25,7 @@ steps:
 | `allow-initial-development-versions` | Starts your initial development release at 0.1.0                                       | Optional |
 | `force-bump-patch-version`           | Increments the patch version if no changes are found                                   | Optional |
 | `changelog-generator-opt`            | Options that are passed to the changelog-generator plugin. Seperated by ","            | Optional |
-| `prepend`                            | Flag the changes to be prepended into the changelog                                    | Optional |
+| `prepend`                            | Flag changes to be prepended into the changelog                                        | Optional |
 
 ## Example `ci.yml` for an npm package
 
