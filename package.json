@@ -5,7 +5,8 @@
   "scripts": {
     "test": "standard src/**",
     "fix": "standard --fix src/**",
-    "build": "ncc build src/index.js"
+    "build": "ncc build src/index.js",
+    "prepare": "husky install"
   },
   "license": "MIT",
   "dependencies": {
@@ -16,12 +17,7 @@
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.3",
-    "husky": "^4.3.6",
+    "husky": "^7.0.1",
     "standard": "^16.0.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test && npm run build && git add dist/"
-    }
   }
 }
