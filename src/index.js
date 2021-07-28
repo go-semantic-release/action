@@ -62,7 +62,7 @@ async function main () {
         args.push(changelogOpts[idx])
       }
     }
-    const binPath = await installer('^2.5.0')
+    const binPath = await installer()
     try {
       core.info('running semantic-release...')
       await exec.exec(binPath, args)

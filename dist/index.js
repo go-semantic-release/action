@@ -5416,6 +5416,9 @@ async function main () {
     if (core.getInput('prerelease')) {
       args.push('--prerelease')
     }
+    if (core.getInput('prepend')) {
+      args.push('--prepend-changelog')
+    }
     if (core.getInput('dry')) {
       args.push('--dry')
     }
@@ -5439,7 +5442,7 @@ async function main () {
         args.push(changelogOpts[idx])
       }
     }
-    const binPath = await installer('^2.5.0')
+    const binPath = await installer()
     try {
       core.info('running semantic-release...')
       await exec.exec(binPath, args)
