@@ -1207,7 +1207,7 @@ var require_core = __commonJS({
       return inputs;
     }
     exports.getMultilineInput = getMultilineInput;
-    function getBooleanInput(name, options) {
+    function getBooleanInput3(name, options) {
       const trueValue = ["true", "True", "TRUE"];
       const falseValue = ["false", "False", "FALSE"];
       const val = getInput2(name, options);
@@ -1218,7 +1218,7 @@ var require_core = __commonJS({
       throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}
 Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
     }
-    exports.getBooleanInput = getBooleanInput;
+    exports.getBooleanInput = getBooleanInput3;
     function setOutput2(name, value) {
       process.stdout.write(os.EOL);
       command_1.issueCommand("set-output", { name }, value);
@@ -1245,10 +1245,10 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
       command_1.issueCommand("error", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
     exports.error = error;
-    function warning(message, properties = {}) {
+    function warning2(message, properties = {}) {
       command_1.issueCommand("warning", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
-    exports.warning = warning;
+    exports.warning = warning2;
     function notice(message, properties = {}) {
       command_1.issueCommand("notice", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
@@ -6636,34 +6636,46 @@ async function installer(version) {
   await import_fs.promises.chmod(path, "0755");
   return path;
 }
+function getBooleanInput2(name) {
+  const inputValue = core.getInput(name);
+  if (!inputValue)
+    return false;
+  try {
+    return core.getBooleanInput(name);
+  } catch (e) {
+    core.warning(e);
+    core.warning(`assuming for input '${name}' that the value '${inputValue}' is true`);
+    return true;
+  }
+}
 async function main() {
   try {
     const changelogFile = core.getInput("changelog-file") || ".generated-go-semantic-release-changelog.md";
-    const args = ["--version-file", "--changelog", changelogFile];
+    let args = ["--version-file", "--changelog", changelogFile];
     if (core.getInput("github-token")) {
       args.push("--token");
       args.push(core.getInput("github-token"));
     }
-    if (core.getInput("prerelease")) {
+    if (getBooleanInput2("prerelease")) {
       args.push("--prerelease");
     }
-    if (core.getInput("prepend")) {
+    if (getBooleanInput2("prepend")) {
       args.push("--prepend-changelog");
     }
-    if (core.getInput("dry")) {
+    if (getBooleanInput2("dry")) {
       args.push("--dry");
     }
     if (core.getInput("update-file")) {
       args.push("--update");
       args.push(core.getInput("update-file"));
     }
-    if (core.getInput("ghr")) {
+    if (getBooleanInput2("ghr")) {
       args.push("--ghr");
     }
-    if (core.getInput("allow-initial-development-versions")) {
+    if (getBooleanInput2("allow-initial-development-versions")) {
       args.push("--allow-initial-development-versions");
     }
-    if (core.getInput("force-bump-patch-version")) {
+    if (getBooleanInput2("force-bump-patch-version")) {
       args.push("--force-bump-patch-version");
     }
     if (core.getInput("changelog-generator-opt")) {
@@ -6672,6 +6684,9 @@ async function main() {
         args.push("--changelog-generator-opt");
         args.push(changelogOpts[idx]);
       }
+    }
+    if (core.getInput("custom-arguments")) {
+      args = args.concat(core.getInput("custom-arguments").split(" ").filter(String));
     }
     const binPath = await installer();
     try {

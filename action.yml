@@ -34,6 +34,9 @@ inputs:
   changelog-generator-opt:
     description: 'options that are passed to the changelog-generator plugin'
     required: false
+  custom-arguments:
+    description: 'custom arguments that are passed directly to the semantic-release cli'
+    required: false
 outputs:
   version:
     description: 'the version of the created release'

@@ -25,34 +25,38 @@ async function installer (version? : string) {
   return path
 }
 
+function getBooleanInput (name: string): boolean {
+  return core.getInput(name) && core.getBooleanInput(name)
+}
+
 async function main (): Promise<void> {
   try {
     const changelogFile = core.getInput('changelog-file') || '.generated-go-semantic-release-changelog.md'
-    const args = ['--version-file', '--changelog', changelogFile]
+    let args = ['--version-file', '--changelog', changelogFile]
     if (core.getInput('github-token')) {
       args.push('--token')
       args.push(core.getInput('github-token'))
     }
-    if (core.getInput('prerelease')) {
+    if (getBooleanInput('prerelease')) {
       args.push('--prerelease')
     }
-    if (core.getInput('prepend')) {
+    if (getBooleanInput('prepend')) {
       args.push('--prepend-changelog')
     }
-    if (core.getInput('dry')) {
+    if (getBooleanInput('dry')) {
       args.push('--dry')
     }
     if (core.getInput('update-file')) {
       args.push('--update')
       args.push(core.getInput('update-file'))
     }
-    if (core.getInput('ghr')) {
+    if (getBooleanInput('ghr')) {
       args.push('--ghr')
     }
-    if (core.getInput('allow-initial-development-versions')) {
+    if (getBooleanInput('allow-initial-development-versions')) {
       args.push('--allow-initial-development-versions')
     }
-    if (core.getInput('force-bump-patch-version')) {
+    if (getBooleanInput('force-bump-patch-version')) {
       args.push('--force-bump-patch-version')
     }
     if (core.getInput('changelog-generator-opt')) {
@@ -61,6 +65,9 @@ async function main (): Promise<void> {
         args.push('--changelog-generator-opt')
         args.push(changelogOpts[idx])
       }
+    }
+    if (core.getInput('custom-arguments')) {
+      args = args.concat(core.getInput('custom-arguments').split(' ').filter(String))
     }
     const binPath = await installer()
     try {
