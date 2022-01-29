@@ -1,12 +1,12 @@
-const fs = require('fs').promises
-const os = require('os')
+import { promises as fs } from 'fs'
+import { arch, platform } from 'os'
 
-const core = require('@actions/core')
-const exec = require('@actions/exec')
-const tc = require('@actions/tool-cache')
-const SemVer = require('semver/classes/semver')
+import * as core from '@actions/core'
+import * as exec from '@actions/exec'
+import * as tc from '@actions/tool-cache'
+import { SemVer } from 'semver'
 
-function getPlatformArch (a, p) {
+function getPlatformArch (a: string, p: string): string {
   const platform = {
     win32: 'windows'
   }
@@ -17,15 +17,15 @@ function getPlatformArch (a, p) {
   return (platform[p] ? platform[p] : p) + '/' + (arch[a] ? arch[a] : a)
 }
 
-async function installer (version) {
+async function installer (version? : string) {
   core.info(`downloading semantic-release@${version || 'latest'}`)
   const v = version ? `/${version}` : ''
-  const path = await tc.downloadTool(`https://get-release.xyz/semantic-release/${getPlatformArch(os.arch(), os.platform())}${v}`)
+  const path = await tc.downloadTool(`https://get-release.xyz/semantic-release/${getPlatformArch(arch(), platform())}${v}`)
   await fs.chmod(path, '0755')
   return path
 }
 
-async function main () {
+async function main (): Promise<void> {
   try {
     const changelogFile = core.getInput('changelog-file') || '.generated-go-semantic-release-changelog.md'
     const args = ['--version-file', '--changelog', changelogFile]
