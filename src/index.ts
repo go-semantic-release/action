@@ -26,7 +26,15 @@ async function installer (version? : string) {
 }
 
 function getBooleanInput (name: string): boolean {
-  return core.getInput(name) && core.getBooleanInput(name)
+  const inputValue = core.getInput(name)
+  if (!inputValue) return false
+  try {
+    return core.getBooleanInput(name)
+  } catch (e) {
+    core.warning(e)
+    core.warning(`assuming for input '${name}' that the value '${inputValue}' is true`)
+    return true
+  }
 }
 
 async function main (): Promise<void> {
