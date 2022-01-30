@@ -6685,6 +6685,10 @@ async function main() {
         args.push(changelogOpts[idx]);
       }
     }
+    if (core.getInput("hooks")) {
+      args.push("--hooks");
+      args.push(core.getInput("hooks"));
+    }
     if (core.getInput("custom-arguments")) {
       args = args.concat(core.getInput("custom-arguments").split(" ").filter(String));
     }

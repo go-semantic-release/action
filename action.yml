@@ -37,6 +37,9 @@ inputs:
   custom-arguments:
     description: 'custom arguments that are passed directly to the semantic-release cli'
     required: false
+  hooks:
+    description: 'enable hooks plugins for semantic release'
+    required: false
 outputs:
   version:
     description: 'the version of the created release'
