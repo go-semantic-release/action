@@ -22,7 +22,7 @@ steps:
 | `update-file`                        | Update the version of a certain file                                                   | Optional |
 | `dry`                                | Do not create a release                                                                | Optional |
 | `prerelease`                         | Flags the release as a prerelease                                                      | Optional |
-| `allow-initial-development-versions` | Starts your initial development release at 0.1.0                                       | Optional |
+| `allow-initial-development-versions` | semantic-release will start your initial development release at 0.1.0 and will handle breaking changes as minor version updates. This option will be ignored if a release with major version greater than or equal 1 exists. | Optional |
 | `force-bump-patch-version`           | Increments the patch version if no changes are found                                   | Optional |
 | `changelog-generator-opt`            | Options that are passed to the changelog-generator plugin. Seperated by ","            | Optional |
 | `prepend`                            | Flag changes to be prepended into the changelog                                        | Optional |
