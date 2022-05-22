@@ -17,7 +17,7 @@ function getPlatformArch (a: string, p: string): string {
   return (platform[p] ? platform[p] : p) + '/' + (arch[a] ? arch[a] : a)
 }
 
-async function installer (version? : string) {
+async function installer (version? : string): Promise<string> {
   core.info(`downloading semantic-release@${version || 'latest'}`)
   const v = version ? `/${version}` : ''
   const path = await tc.downloadTool(`https://get-release.xyz/semantic-release/${getPlatformArch(arch(), platform())}${v}`)
@@ -81,7 +81,10 @@ async function main (): Promise<void> {
     if (core.getInput('custom-arguments')) {
       args = args.concat(core.getInput('custom-arguments').split(' ').filter(String))
     }
-    const binPath = await installer()
+
+    let binPath = core.getInput('bin')
+    if (!binPath) binPath = await installer()
+
     try {
       core.info('running semantic-release...')
       await exec.exec(binPath, args)

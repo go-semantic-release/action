@@ -40,6 +40,9 @@ inputs:
   hooks:
     description: 'enable hooks plugins for semantic release'
     required: false
+  bin:
+    description: 'optional path to the semantic-release binary'
+    required: false
 outputs:
   version:
     description: 'the version of the created release'
