@@ -12,19 +12,19 @@
   "dependencies": {
     "@actions/core": "^1.6.0",
     "@actions/exec": "^1.1.0",
-    "@actions/tool-cache": "^1.7.1",
+    "@actions/tool-cache": "^2.0.1",
     "semver": "^7.3.5"
   },
   "devDependencies": {
-    "@types/node": "^17.0.13",
+    "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
-    "esbuild": "^0.14.14",
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
+    "esbuild": "^0.15.13",
+    "eslint": "^8.26.0",
+    "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-promise": "^6.1.1",
     "husky": "^7.0.1",
     "typescript": "^4.5.5"
   }
