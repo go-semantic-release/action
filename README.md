@@ -1,5 +1,9 @@
 # go-semantic-release/action
 
+The official go-semantic-release GitHub Action.
+
+> :warning: This action always installs the [latest release](https://github.com/go-semantic-release/semantic-release/releases/latest) of go-semantic-release. Thus, the version of this repository is not linked to the used go-semantic-release version.
+
 ## Usage
 
 To integrate [go-semantic-release](https://github.com/go-semantic-release/semantic-release) with your GitHub Actions pipeline, specify the name of this repository with a version tag as a step within your workflow config file:
@@ -27,7 +31,7 @@ steps:
 | `changelog-generator-opt`            | Options that are passed to the changelog-generator plugin. Seperated by ","            | Optional |
 | `prepend`                            | Flag changes to be prepended into the changelog                                        | Optional |
 
-## Example `ci.yml` for an npm package
+## Example `ci.yml` for a npm package
 
 ```yaml
 name: CI
