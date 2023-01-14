@@ -9,6 +9,11 @@ The official go-semantic-release GitHub Action.
 To integrate [go-semantic-release](https://github.com/go-semantic-release/semantic-release) with your GitHub Actions pipeline, specify the name of this repository with a version tag as a step within your workflow config file:
 
 ```yaml
+# If a 403 error occurs, make sure to set content permission to write
+# see: https://github.com/go-semantic-release/action/issues/27
+#permissions:
+#  contents: write
+
 steps:
   - uses: actions/checkout@master
   - uses: go-semantic-release/action@v1
@@ -43,6 +48,11 @@ on:
   pull_request:
     branches:
       - '**'
+
+# If a 403 error occurs, make sure to set content permission to write
+# see: https://github.com/go-semantic-release/action/issues/27
+#permissions:
+#  contents: write
 
 jobs:
   build:
@@ -83,4 +93,4 @@ jobs:
 
 The [MIT License (MIT)](http://opensource.org/licenses/MIT)
 
-Copyright © 2020 [Christoph Witzko](https://github.com/christophwitzko)
+Copyright © 2023 [Christoph Witzko](https://github.com/christophwitzko)
