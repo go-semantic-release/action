@@ -7634,10 +7634,9 @@ function getPlatformArch(a, p) {
   };
   return (platform2[p] ? platform2[p] : p) + "/" + (arch2[a] ? arch2[a] : a);
 }
-async function installer(version2) {
-  core.info(`downloading semantic-release@${version2 || "latest"}`);
-  const v = version2 ? `/${version2}` : "";
-  const path = await tc.downloadTool(`https://get-release.xyz/semantic-release/${getPlatformArch((0, import_os.arch)(), (0, import_os.platform)())}${v}`);
+async function installLatestSemRelVersion() {
+  core.info("downloading semantic-release binary...");
+  const path = await tc.downloadTool(`https://registry.go-semantic-release.xyz/downloads/${getPlatformArch((0, import_os.arch)(), (0, import_os.platform)())}/semantic-release`);
   await import_fs.promises.chmod(path, "0755");
   return path;
 }
@@ -7699,7 +7698,7 @@ async function main() {
     }
     let binPath = core.getInput("bin");
     if (!binPath)
-      binPath = await installer();
+      binPath = await installLatestSemRelVersion();
     try {
       core.info("running semantic-release...");
       await exec.exec(binPath, args);
