@@ -17,10 +17,9 @@ function getPlatformArch (a: string, p: string): string {
   return (platform[p] ? platform[p] : p) + '/' + (arch[a] ? arch[a] : a)
 }
 
-async function installer (version? : string): Promise<string> {
-  core.info(`downloading semantic-release@${version || 'latest'}`)
-  const v = version ? `/${version}` : ''
-  const path = await tc.downloadTool(`https://get-release.xyz/semantic-release/${getPlatformArch(arch(), platform())}${v}`)
+async function installLatestSemRelVersion (): Promise<string> {
+  core.info('downloading semantic-release binary...')
+  const path = await tc.downloadTool(`https://registry.go-semantic-release.xyz/downloads/${getPlatformArch(arch(), platform())}/semantic-release`)
   await fs.chmod(path, '0755')
   return path
 }
@@ -83,7 +82,7 @@ async function main (): Promise<void> {
     }
 
     let binPath = core.getInput('bin')
-    if (!binPath) binPath = await installer()
+    if (!binPath) binPath = await installLatestSemRelVersion()
 
     try {
       core.info('running semantic-release...')
