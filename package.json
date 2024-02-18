@@ -5,7 +5,7 @@
   "scripts": {
     "test": "eslint src/** && tsc --noEmit ./src/index.ts",
     "fix": "eslint --fix src/**",
-    "build": "bun build ./src/index.js --target=node --outfile=dist/index.js",
+    "build": "bun build ./src/index.js --target=node --outfile=dist/index.mjs",
     "prepare": "husky"
   },
   "license": "MIT",
