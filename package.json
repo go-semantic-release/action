@@ -3,10 +3,10 @@
   "version": "0.0.0-development",
   "main": "src/index.js",
   "scripts": {
-    "test": "eslint src/**",
+    "test": "eslint src/** && tsc --noEmit ./src/index.ts",
     "fix": "eslint --fix src/**",
-    "build": "esbuild ./src/index.js --bundle --platform=node --outfile=dist/index.js",
-    "prepare": "husky install"
+    "build": "bun build ./src/index.js --target=node --outfile=dist/index.js",
+    "prepare": "husky"
   },
   "license": "MIT",
   "dependencies": {
@@ -19,7 +19,6 @@
     "@types/node": "^20.11.19",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
-    "esbuild": "^0.20.0",
     "eslint": "^8.33.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
